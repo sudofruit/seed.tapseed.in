@@ -1,0 +1,145 @@
+body {
+  background-color: #1a1825;
+  height: 100vh;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+.profile {
+  padding-bottom: 30px;
+  max-width: 500px;
+}
+.maincontainer {
+  position: relative;
+}
+.topimage {
+  max-height: 200px;
+  width: 100%;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+.connectedcontainer {
+  background-color: #1a1825;
+  position: relative;
+  margin-left: 20px;
+  margin-right: 20px;
+  border: 2px solid #505969;
+  border-radius: 20px;
+  text-align: center;
+  margin-top: -40px;
+  padding-bottom: 20px;
+}
+.headerimage {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  top: -50px;
+}
+.userimage {
+  width: 100%;
+  border-radius: 100%;
+  height: 100%;
+}
+.innerheaderdiv {
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+.headername {
+  margin-top: 60px;
+  color: #fff;
+}
+.profession {
+  color: #fff;
+}
+.description {
+  color: #737b8f;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+/*.btn-connected {
+  color: #737b8f;
+  border: 1px solid #505969;
+  width: 200px;
+  border-radius: 30px;
+  background-color: #383b47;
+}*/
+.btn-connected {
+  color: #fff; /* White text for better visibility */
+  border: 1px solid #505969; /* Dark border */
+  width: 200px;
+  border-radius: 30px;
+  background-color: #2196f3; /* Blue background color */
+  font-weight: bold; /* Make the text slightly bold */
+  transition: background-color 0.3s ease; /* Smooth transition for background color change */
+}
+
+.btn-connected:hover {
+  background-color: #1e88e5; /* Slightly darker shade of blue on hover */
+}
+
+.connectedbuttoncont {
+  display: flex;
+  justify-content: center;
+}
+.connectedimage {
+  height: 20px;
+  width: 20px;
+}
+.connectedbuttoncontinner {
+  border: 1px solid #505969;
+  padding: 10px;
+  border-radius: 30px;
+  margin-left: 10px;
+}
+/*.imagescontainer {
+  display: flex;
+  margin: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.socialimagecont {
+  max-width: 33%;
+  margin-top: 10px;
+  padding: 5px;
+  width: 33%;
+  text-align: center;
+}
+.socialimages {
+  height: 80%;
+  width: 80%;
+  border-radius: 10px;
+}*/
+/* Styles for the container holding the social media icons */
+.imagescontainer {
+  display: flex; /* Use flexbox for layout */
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+  justify-content: center; /* Center items horizontally */
+  gap: 20px; /* Spacing between items */
+  margin: 20px auto; /* Center the container with some margin */
+  max-width: 500px; /* Limit container width for responsiveness */
+}
+
+/* Styles for each individual social media icon container */
+.socialimagecont {
+  flex: 0 0 calc(33.33% - 20px); /* Each item takes one-third of the space with some margin */
+  max-width: calc(33.33% - 20px); /* Maximum width for each item */
+  text-align: center; /* Center the content horizontally */
+}
+
+/* Styles for the social media icons */
+.socialimages {
+  width: 100%; /* Take full width of the container */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 10px; /* Rounded corners */
+}
+
+/* Media query for larger screens */
+@media screen and (min-width: 768px) {
+  /* Adjust layout for larger screens */
+  .socialimagecont {
+    flex-basis: calc(
+      33.33% - 20px
+    ); /* Each item takes one-third of the space with some margin */
+    max-width: calc(33.33% - 20px); /* Maximum width for each item */
+  }
+}
