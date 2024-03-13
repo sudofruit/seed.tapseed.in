@@ -14,12 +14,14 @@
     <link href="styles.css" rel="stylesheet" />
   </head>
   <body>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <div class="container px-0 profile">
       <div class="maincontainer">
         <img
           alt="banner"
           src="https://img.freepik.com/free-photo/beautiful-view-greenery-bridge-forest-perfect-background_181624-17827.jpg"
           class="topimage"
+          id="coverImg"
         />
       </div>
       <div class="connectedcontainer">
@@ -27,6 +29,7 @@
           <div class="innerheaderdiv">
             <img
               class="userimage"
+              id="profileImg"
               alt="user"
               src="/images/userimage1.png"
             />
@@ -43,54 +46,19 @@
           business Success. Let's connect and make waves in the digital world
           together!
         </p>
-        <div class="connectedbuttoncont">
+        <div class="connectedbuttoncont" id="vcardBtn">
           <button class="btn btn-connected">Save Contact</button>
         </div>
       </div>
     </div>
     <div class="imagescontainer">
       <div class="socialimagecont">
-        <img
-          class="socialimages"
-          alt="phone"
-          src="/images/phone_icon.png"
-        />
+        <img class="socialimages" alt="phone" src="/images/phone_icon.png" />
       </div>
-      <div class="socialimagecont">
-        <img
-          class="socialimages"
-          alt="phone"
-          src="/images/email_icon.png"
-        />
-      </div>
-      <div class="socialimagecont">
-        <img
-          class="socialimages"
-          alt="phone"
-          src="/images/messages_icon.png"
-        />
-      </div>
-      <div class="socialimagecont">
-        <img
-          class="socialimages"
-          alt="phone"
-          src="/images/whatsapp_icon.png"
-        />
-      </div>
-      <div class="socialimagecont">
-        <img
-          class="socialimages"
-          alt="phone"
-          src="/images/browser_icon.png"
-        />
-      </div>
-      <div class="socialimagecont">
-        <img
-          class="socialimages"
-          alt="phone"
-          src="/images/2697648_apple_twitter_conversation_message_news_icon.png"
-        />
-      </div>
+    </div>
+
+    <div id="progress-bar-container">
+      <div id="progress-bar"></div>
     </div>
 
     <script
@@ -98,5 +66,6 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+    <script src="scripts.js"></script>
   </body>
 </html>
