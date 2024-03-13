@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", async function () {
+  let userEmail; // Declare userEmail in the local scope within the event listener
+
   // Get the current URL
   const currentUrl = window.location.href;
   const urlParts = currentUrl.split("#");
@@ -20,12 +22,15 @@ document.addEventListener("DOMContentLoaded", async function () {
       if (user) {
         console.log(username);
         const imageUrl =
+          "https://tapseed.cloud/" +
           user.attributes.profile?.data?.attributes?.formats?.medium?.url;
         const coverUrl =
+          "https://tapseed.cloud/" +
           user.attributes.cover_photo?.data?.attributes?.formats?.medium?.url;
+
         console.log("Medium Image URL:", imageUrl);
         console.log("Medium Image URL:", coverUrl);
-
+        const urlHead = "https://tapseed.cloud/";
         const imageElement = document.getElementById("profileImg");
         if (imageElement && imageUrl) imageElement.src = imageUrl;
         const coverElement = document.getElementById("coverImg");
@@ -35,8 +40,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       }
     })
     .catch((error) => console.error("Error fetching image data:", error));
-
-  let userEmail; // Declare userEmail in the local scope within the event listener
 
   async function fetchName(username) {
     const url = `https://tapseed.cloud/api/people?filters[username][$eq]=${username}`;
@@ -96,7 +99,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     newData.forEach((linkData) => {
       const linkElement = createLinkElement(linkData);
       if (linkElement) {
-        container.appendChild(linkElement);
+        container.appendChild(linkElement); // Append link element to the container
       }
     });
   }
@@ -139,47 +142,73 @@ document.addEventListener("DOMContentLoaded", async function () {
   } else {
     console.error("vcardBtn not found in the DOM");
   }
-
-  // Function to create HTML elements
-  function createLinkElement(linkData) {
-    const { id, attributes } = linkData;
-
-    // Check if link_on is true, if not, return null
-    if (!attributes.link_on) {
-      return null;
-    }
-
-    const linkDiv = document.createElement("div");
-    linkDiv.className = "socialimagecont";
-
-    const linkElement = document.createElement("a");
-    linkElement.href = attributes.Link;
-
-    const imgElement = document.createElement("img");
-    imgElement.className = "socialimages";
-    imgElement.alt = attributes.link_name; // Set alt text to link name
-
-    // Map between link names and icon URLs
-    const iconMap = {
-      google: "https://www.google.com/favicon.ico",
-      facebook: "https://www.facebook.com/favicon.ico",
-      instagram:
-        "https://cdn4.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2-free/128/social-instagram-new-circle-512.png",
-      // Add more mappings for other links as needed
-    };
-
-    // Check if the link name has a corresponding icon URL in the map
-    const iconUrl = iconMap[attributes.link_name.toLowerCase()];
-    if (iconUrl) {
-      imgElement.src = iconUrl;
-    } else {
-      // Use a default icon if no specific icon is found for the link
-      imgElement.src = "https://example.com/default-icon.png";
-    }
-
-    linkElement.appendChild(imgElement);
-    linkDiv.appendChild(linkElement);
-
-    return linkDiv;
-  }
 });
+
+// Updated mapping for social media platforms including image path and link data
+const iconMap = {
+  google: {
+    imagePath: "https://www.google.com/favicon.ico",
+    link_data: "https://www.google.com/search?q=",
+  },
+  facebook: {
+    imagePath: "https://www.facebook.com/favicon.ico",
+    link_data: "https://www.facebook.com/",
+  },
+  instagram: {
+    imagePath:
+      "https://cdn4.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2-free/128/social-instagram-new-circle-512.png",
+    link_data: "https://www.instagram.com/",
+  },
+  whatsapp: {
+    imagePath:
+      "https://www.google.com/imgres?imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F5%2F5e%2FWhatsApp_icon.png&tbnid=VFEdS_zjrb0ZRM&vet=12ahUKEwi3uOu53vCEAxV-xzgGHSvnDEsQMygBegQIARBy..i&imgrefurl=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3AWhatsApp_icon.png&docid=w0R2SMQUwwizEM&w=662&h=664&q=whatsapp%20icon&ved=2ahUKEwi3uOu53vCEAxV-xzgGHSvnDEsQMygBegQIARBy",
+    link_data: " https://wa.me/91",
+  },
+  email: {
+    imagePath:
+      "https://www.google.com/imgres?imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F5%2F5e%2FWhatsApp_icon.png&tbnid=VFEdS_zjrb0ZRM&vet=12ahUKEwi3uOu53vCEAxV-xzgGHSvnDEsQMygBegQIARBy..i&imgrefurl=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3AWhatsApp_icon.png&docid=w0R2SMQUwwizEM&w=662&h=664&q=whatsapp%20icon&ved=2ahUKEwi3uOu53vCEAxV-xzgGHSvnDEsQMygBegQIARBy",
+    link_data: "mailto:",
+  },
+  phone: {
+    imagePath:
+      "https://www.google.com/imgres?imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F5%2F5e%2FWhatsApp_icon.png&tbnid=VFEdS_zjrb0ZRM&vet=12ahUKEwi3uOu53vCEAxV-xzgGHSvnDEsQMygBegQIARBy..i&imgrefurl=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3AWhatsApp_icon.png&docid=w0R2SMQUwwizEM&w=662&h=664&q=whatsapp%20icon&ved=2ahUKEwi3uOu53vCEAxV-xzgGHSvnDEsQMygBegQIARBy",
+    link_data: "tel:+91",
+  },
+  // Add more mappings for other social media platforms as needed
+};
+
+// Function to create HTML elements
+function createLinkElement(linkData) {
+  const { id, attributes } = linkData;
+
+  // Check if link_on is true, if not, return null
+  if (!attributes.link_on) {
+    return null;
+  }
+
+  const linkDiv = document.createElement("div");
+  linkDiv.className = "socialimagecont";
+
+  const linkElement = document.createElement("a");
+  // Prepend the link data associated with the social media platform to the link URL
+  linkElement.href =
+    iconMap[attributes.link_name.toLowerCase()].link_data + attributes.Link;
+
+  const imgElement = document.createElement("img");
+  imgElement.className = "socialimages";
+  imgElement.alt = attributes.link_name; // Set alt text to link name
+
+  // Get the image path from the iconMap based on the social media platform
+  const imagePath = iconMap[attributes.link_name.toLowerCase()].imagePath;
+  if (imagePath) {
+    imgElement.src = imagePath;
+  } else {
+    // Use a default icon if no specific icon is found for the link
+    imgElement.src = "https://example.com/default-icon.png";
+  }
+
+  linkElement.appendChild(imgElement);
+  linkDiv.appendChild(linkElement);
+
+  return linkDiv;
+}
