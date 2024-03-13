@@ -146,33 +146,33 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 // Updated mapping for social media platforms including image path and link data
 const iconMap = {
-  google: {
-    imagePath: "https://www.google.com/favicon.ico",
-    link_data: "https://www.google.com/search?q=",
-  },
   facebook: {
-    imagePath: "https://www.facebook.com/favicon.ico",
+    imagePath: "https://tapseed.cloud/uploads/facebook_icon_6b6420ab3b.png",
     link_data: "https://www.facebook.com/",
   },
   instagram: {
-    imagePath:
-      "https://cdn4.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2-free/128/social-instagram-new-circle-512.png",
+    imagePath: "https://tapseed.cloud/uploads/instagram_icon_b9e86a2bd2.png",
     link_data: "https://www.instagram.com/",
   },
   whatsapp: {
-    imagePath:
-      "https://www.google.com/imgres?imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F5%2F5e%2FWhatsApp_icon.png&tbnid=VFEdS_zjrb0ZRM&vet=12ahUKEwi3uOu53vCEAxV-xzgGHSvnDEsQMygBegQIARBy..i&imgrefurl=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3AWhatsApp_icon.png&docid=w0R2SMQUwwizEM&w=662&h=664&q=whatsapp%20icon&ved=2ahUKEwi3uOu53vCEAxV-xzgGHSvnDEsQMygBegQIARBy",
+    imagePath: "https://tapseed.cloud/uploads/whatsapp_icon_2c1255c072.png",
     link_data: " https://wa.me/91",
   },
   email: {
-    imagePath:
-      "https://www.google.com/imgres?imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F5%2F5e%2FWhatsApp_icon.png&tbnid=VFEdS_zjrb0ZRM&vet=12ahUKEwi3uOu53vCEAxV-xzgGHSvnDEsQMygBegQIARBy..i&imgrefurl=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3AWhatsApp_icon.png&docid=w0R2SMQUwwizEM&w=662&h=664&q=whatsapp%20icon&ved=2ahUKEwi3uOu53vCEAxV-xzgGHSvnDEsQMygBegQIARBy",
+    imagePath: "https://tapseed.cloud/uploads/email_icon_d6d4621dbb.png",
     link_data: "mailto:",
   },
   phone: {
-    imagePath:
-      "https://www.google.com/imgres?imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F5%2F5e%2FWhatsApp_icon.png&tbnid=VFEdS_zjrb0ZRM&vet=12ahUKEwi3uOu53vCEAxV-xzgGHSvnDEsQMygBegQIARBy..i&imgrefurl=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3AWhatsApp_icon.png&docid=w0R2SMQUwwizEM&w=662&h=664&q=whatsapp%20icon&ved=2ahUKEwi3uOu53vCEAxV-xzgGHSvnDEsQMygBegQIARBy",
+    imagePath: "https://tapseed.cloud/uploads/phone_icon_275497ff7c.png",
     link_data: "tel:+91",
+  },
+  website: {
+    imagePath: "https://tapseed.cloud/uploads/browser_icon_aadc966123.png",
+    link_data: "https://",
+  },
+  gmb: {
+    imagePath: "https://tapseed.cloud/uploads/gmb_icon_4bbf255130.png",
+    link_data: "",
   },
   // Add more mappings for other social media platforms as needed
 };
@@ -193,7 +193,7 @@ function createLinkElement(linkData) {
   // Prepend the link data associated with the social media platform to the link URL
   linkElement.href =
     iconMap[attributes.link_name.toLowerCase()].link_data + attributes.Link;
-
+  console.log(linkElement);
   const imgElement = document.createElement("img");
   imgElement.className = "socialimages";
   imgElement.alt = attributes.link_name; // Set alt text to link name
