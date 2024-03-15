@@ -192,7 +192,7 @@ function createLinkElement(linkData) {
   const linkElement = document.createElement("a");
   // Prepend the link data associated with the social media platform to the link URL
   linkElement.href =
-    iconMap[attributes.link_name.toLowerCase()].link_data + attributes.Link;
+    iconMap[attributes.link_name.toLowerCase()].link_data + attributes.link;
   console.log(linkElement);
   const imgElement = document.createElement("img");
   imgElement.className = "socialimages";
