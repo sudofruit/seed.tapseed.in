@@ -73,15 +73,17 @@
             />
           </div>
         </div>
-        <h2 class="headername"></h2>
-        <h4 class="profession"></h4>
-        <p class="description"></p>
+        <h2 class="headername" id="name"></h2>
+        <h4 class="profession" id="designation"></h4>
+        <p class="description" id="bio"></p>
         <div class="connectedbuttoncont" id="vcardBtn">
-          <button class="btn btn-connected">Save Contact</button>
+          <button class="btn btn-connected" id="saveContact">
+            Save Contact
+          </button>
         </div>
       </div>
     </div>
-    <div class="imagescontainer" id="links-container">
+    <div class="imagescontainer" id="linksContainer">
       <div class="socialimagecont">
         <img class="socialimages" alt="phone" src="/images/phone_icon.png" />
       </div>
@@ -96,6 +98,6 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-    <script src="scripts.js"></script>
+    <script type="module" src="main.js"></script>
   </body>
 </html>
