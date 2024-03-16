@@ -146,6 +146,8 @@ async function handleSaveContactClick() {
     // Generate vCard content using existing user data
     const vCardContent = generateVCard(
       user.attributes.name,
+      user.attributes.designation,
+
       user.attributes.email,
       user.attributes.phone
     );
@@ -169,32 +171,17 @@ async function handleSaveContactClick() {
 }
 
 // Function to generate a vCard from user data
-function generateVCard(name, email, phone) {
+function generateVCard(name, designation, organization, email, phone) {
   // Validate phone number format
-  const phoneRegex = /^\d{10}$/;
-  if (!phoneRegex.test(phone)) {
-    alert("Please enter a valid 10-digit phone number.");
-    return null; // Return null if phone number is invalid
-  }
 
-  // Trim the values to remove leading and trailing whitespaces
-  name = name.trim();
-  email = email.trim();
-  phone = phone.trim();
+  // Trim and convert data to strings
+  name = name ? String(name).trim() : "";
+  designation = designation ? String(designation).trim() : "";
 
-  // Convert data to strings
-  name = String(name);
-  email = String(email);
-  phone = String(phone);
+  email = email ? String(email).trim() : "";
+  phone = phone ? String(phone).trim() : "";
 
-  // Create vCard content
-  const vCardContent = `BEGIN:VCARD
-  VERSION:3.0
-  N:${name};;;
-  FN:${name}
-  EMAIL:${email}
-  TEL;TYPE=CELL:${phone}
-  END:VCARD`;
+  const vCardContent = `BEGIN:VCARD\nVERSION:3.0\nFN:${name}\nN:${name};;;\nTITLE:${designation}\nEMAIL:${email}\nTEL;TYPE=CELL:${phone}\nEND:VCARD`;
 
-  return vCardContent;
+  return vCardContent.trim();
 }
