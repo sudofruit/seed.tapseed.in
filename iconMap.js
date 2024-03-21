@@ -60,7 +60,7 @@ const iconMap = {
   },
   spotify: {
     imagePath: "https://tapseed.cloud/uploads/spotify_icon_69ddbf03b3.png",
-    link_data: "link",
+    link_data: "",
   },
   Soundcloud: {
     imagePath: "https://tapseed.cloud/uploads/soundcloud_8760926e60.png",
