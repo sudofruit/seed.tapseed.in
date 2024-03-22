@@ -147,7 +147,6 @@ async function handleSaveContactClick() {
     const vCardContent = generateVCard(
       user.attributes.name,
       user.attributes.designation,
-
       user.attributes.email,
       user.attributes.phone
     );
@@ -169,9 +168,11 @@ async function handleSaveContactClick() {
     console.error("Error generating vCard:", error);
   }
 }
+console.log(email);
+console.log(phone);
 
 // Function to generate a vCard from user data
-function generateVCard(name, designation, organization, email, phone) {
+function generateVCard(name, designation, email, phone) {
   // Validate phone number format
 
   // Trim and convert data to strings
