@@ -2,7 +2,7 @@ import { fetchUserData, fetchImageData, fetchLinkData } from "./api.js";
 import iconMap from "./iconMap.js";
 
 let user; // Declare user variable outside the DOMContentLoaded event handler
-
+let imageurlForvcard;
 document.addEventListener("DOMContentLoaded", async function () {
   try {
     const currentUrl = window.location.href;
@@ -38,6 +38,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         console.log("Medium Image URL:", imageUrl);
         console.log("Medium Image URL:", coverUrl);
+        imageurlForvcard = imageUrl;
+        fetchAndStoreImage(imageurlForvcard);
 
         const imageElement = document.getElementById("profileImg");
         if (imageElement && imageUrl) imageElement.src = imageUrl;
@@ -140,6 +142,47 @@ function createLinkElement(linkData) {
   return linkDiv;
 }
 
+// image link to encoded ..
+// function to encode image
+
+async function encodeImageToBase64(imageurlForvcard) {
+  try {
+    // Fetch the image data
+    const response = await fetch(imageurlForvcard);
+    const blob = await response.blob();
+
+    // Convert the blob to base64
+    const reader = new FileReader();
+    reader.readAsDataURL(blob);
+
+    return new Promise((resolve, reject) => {
+      reader.onloadend = () => {
+        const base64Data = reader.result.split(",")[1];
+        resolve(base64Data);
+      };
+      reader.onerror = reject;
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    return null;
+  }
+}
+
+let image64 = ""; // Declare `image` without assigning a value initially
+
+async function fetchAndStoreImage(imageurlForvcard) {
+  try {
+    const base64Data = await encodeImageToBase64(imageurlForvcard);
+    console.log("Base64 encoded image:", base64Data);
+    image64 = base64Data; // Now, `image` stores the Base64 data
+    // You can use the `image` variable here as needed
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+// Call the function with your image URL
+
 // Function to handle the click event of the "saveContact" button
 async function handleSaveContactClick() {
   try {
@@ -148,7 +191,8 @@ async function handleSaveContactClick() {
       user.attributes.name,
       user.attributes.designation,
       user.attributes.email,
-      user.attributes.phone
+      user.attributes.phone,
+      image64
     );
 
     // Create a Blob containing the vCard content
@@ -168,11 +212,9 @@ async function handleSaveContactClick() {
     console.error("Error generating vCard:", error);
   }
 }
-console.log(email);
-console.log(phone);
 
 // Function to generate a vCard from user data
-function generateVCard(name, designation, email, phone) {
+function generateVCard(name, designation, email, phone, image) {
   // Validate phone number format
 
   // Trim and convert data to strings
@@ -182,7 +224,10 @@ function generateVCard(name, designation, email, phone) {
   email = email ? String(email).trim() : "";
   phone = phone ? String(phone).trim() : "";
 
-  const vCardContent = `BEGIN:VCARD\nVERSION:3.0\nFN:${name}\nN:${name};;;\nTITLE:${designation}\nEMAIL:${email}\nTEL;TYPE=CELL:${phone}\nEND:VCARD`;
+  // Keep in mind that `image` will not be immediately populated with the Base64 data,
+  // since `fetchAndStoreImage` is asynchronous.
+
+  const vCardContent = `BEGIN:VCARD\nVERSION:3.0\nFN:${name}\nN:${name};;;\nTITLE:${designation}\nEMAIL:${email}\nTEL;TYPE=CELL:${phone}\nPHOTO;ENCODING=b;TYPE=JPEG:${image}\nEND:VCARD`;
 
   return vCardContent.trim();
 }
