@@ -3,6 +3,7 @@ import iconMap from "./iconMap.js";
 
 let user; // Declare user variable outside the DOMContentLoaded event handler
 let imageurlForvcard;
+let phoneLinks;
 document.addEventListener("DOMContentLoaded", async function () {
   try {
     const currentUrl = window.location.href;
@@ -67,6 +68,23 @@ document.addEventListener("DOMContentLoaded", async function () {
       } else {
         console.error("Error: linksContainer not found");
       }
+
+      phoneLinks = {};
+
+      // Populate phoneLinks object with phone numbers
+      linkData.forEach((entry) => {
+        const linkName = entry.attributes.link_name;
+        const linkValue = entry.attributes.link;
+        const linkOn = entry.attributes.link_on;
+
+        if (linkName === "phone" && linkOn) {
+          if (!phoneLinks[linkName]) {
+            phoneLinks[linkName] = [];
+          }
+          phoneLinks[linkName].push(linkValue);
+        }
+      });
+      console.log("phone link ", phoneLinks);
 
       // Loop through each link data and create link elements
       linkData.forEach((link) => {
@@ -191,7 +209,8 @@ async function handleSaveContactClick() {
       user.attributes.name,
       user.attributes.designation,
       user.attributes.email,
-      user.attributes.phone,
+      user.attributes.organization_name,
+      phoneLinks,
       image64
     );
 
@@ -214,7 +233,14 @@ async function handleSaveContactClick() {
 }
 
 // Function to generate a vCard from user data
-function generateVCard(name, designation, email, phone, image) {
+function generateVCard(
+  name,
+  designation,
+  email,
+  organization,
+  phoneLinks,
+  image
+) {
   // Validate phone number format
 
   // Trim and convert data to strings
@@ -222,12 +248,16 @@ function generateVCard(name, designation, email, phone, image) {
   designation = designation ? String(designation).trim() : "";
 
   email = email ? String(email).trim() : "";
-  phone = phone ? String(phone).trim() : "";
+  organization = organization ? String(organization).trim() : "";
 
-  // Keep in mind that `image` will not be immediately populated with the Base64 data,
-  // since `fetchAndStoreImage` is asynchronous.
+  let phoneNumbers = "";
+  if (phoneLinks && phoneLinks["phone"]) {
+    phoneNumbers = phoneLinks["phone"]
+      .map((number) => `TEL;TYPE=CELL:${number}`)
+      .join("\n");
+  }
 
-  const vCardContent = `BEGIN:VCARD\nVERSION:3.0\nFN:${name}\nN:${name};;;\nTITLE:${designation}\nEMAIL:${email}\nTEL;TYPE=CELL:${phone}\nPHOTO;ENCODING=b;TYPE=JPEG:${image}\nEND:VCARD`;
+  const vCardContent = `BEGIN:VCARD\nVERSION:3.0\nFN:${name}\nN:${name};;;\nTITLE:${designation}\nORG:${organization}\nEMAIL:${email}\n${phoneNumbers}\nPHOTO;ENCODING=b;TYPE=JPEG:${image}\nEND:VCARD`;
 
   return vCardContent.trim();
 }
